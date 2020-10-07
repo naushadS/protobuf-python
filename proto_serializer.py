@@ -17,6 +17,8 @@ from config.main import (
     person_json_file_path,
     persons_bin_file_path,
     persons_json_file_path,
+    persons_bin_lakh_file_path,
+    persons_json_lakh_file_path,
 )
 from util.printer import printStylizedHeader, printRepresentations, printSummary
 
@@ -112,7 +114,9 @@ with open(persons_json_file_path, "w") as f:
 
 # Takes about 443 bytes on the disk
 persons_json_file_size = int(os.stat(persons_json_file_path).st_size)
-print(f"Took {persons_json_file_size} bytes to store json data in json format\n")
+print(
+    f"Took {persons_json_file_size} bytes to store json data (5 records) in json format\n"
+)
 
 # Initialize persons proto object(message)
 persons = person_pb2.Persons()
@@ -167,7 +171,47 @@ with open(persons_bin_file_path, "wb") as f:
 # Takes about 198 bytes on disk
 persons_bin_file_size = int(os.stat(persons_bin_file_path).st_size)
 print(
-    f"Took {persons_bin_file_size} bytes to store serialized data(using protobuf) in binary format\n"
+    f"Took {persons_bin_file_size} bytes to store serialized data(using protobuf) (5 records)  in binary format\n"
+)
+
+# Try doing the same but for 100k records
+persons_lakh_json = []
+for i in range(1_00_000):
+    persons_lakh_json.append(
+        {
+            "firstName": "Naushad",
+            "lastName": "Shukoor",
+            "age": i,
+            "email": "naushadshukoor@gmail.com",
+        }
+    )
+# Convert the python list to JSON and write to the disk
+with open(persons_json_lakh_file_path, "w") as f:
+    f.write(json.dumps(persons_lakh_json))
+
+persons_json_lakh_file_size = int(os.stat(persons_json_lakh_file_path).st_size)
+print(
+    f"Took {persons_json_lakh_file_size} bytes({round(persons_json_lakh_file_size/1e+6,2)} MB) to store data (100k records) in JSON format\n"
+)
+
+# Initialize persons proto object(message)
+persons_lakh = person_pb2.Persons()
+
+for i in range(1_00_000):
+    # Start adding multiple persons to the persons object(message)
+    p = persons_lakh.persons.add()
+
+    p.firstName = "Naushad"
+    p.lastName = "Shukoor"
+    p.age = i
+    p.email = "naushadshukoor@gmail.com"
+
+with open(persons_bin_lakh_file_path, "wb") as f:
+    f.write(persons_lakh.SerializeToString())
+
+persons_bin_lakh_file_size = int(os.stat(persons_bin_lakh_file_path).st_size)
+print(
+    f"Took {persons_bin_lakh_file_size} bytes({round(persons_bin_lakh_file_size/1e+6,2)} MB) to store serialized data(using protobuf) (100k records) in binary format\n"
 )
 
 printSummary(
@@ -175,4 +219,6 @@ printSummary(
     person_bin_file_size,
     persons_json_file_size,
     persons_bin_file_size,
+    persons_json_lakh_file_size,
+    persons_bin_lakh_file_size,
 )

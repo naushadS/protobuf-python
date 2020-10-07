@@ -22,3 +22,6 @@ person_json_file_path = f"{json_dir}/person.json"
 
 persons_bin_file_path = f"{bins_dir}/persons_bin"
 persons_json_file_path = f"{json_dir}/persons.json"
+
+persons_bin_lakh_file_path = f"{bins_dir}/persons_lakh_bin"
+persons_json_lakh_file_path = f"{json_dir}/persons_lakh.json"

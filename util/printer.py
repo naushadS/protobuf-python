@@ -40,6 +40,8 @@ def printSummary(
     person_bin_file_size,
     persons_json_file_size,
     persons_bin_file_size,
+    persons_json_lakh_file_size,
+    persons_bin_lakh_file_size,
 ):
     print(
         f"""
@@ -49,7 +51,10 @@ Summary
 
 person(json):{person_json_file_size} bytes, person(binary):{person_bin_file_size} bytes ------> ({round(person_bin_file_size/person_json_file_size,2)}% reduction in storage size)
 
-persons(json):{persons_json_file_size} bytes, persons(binary):{persons_bin_file_size} bytes ------> ({round(persons_bin_file_size/persons_json_file_size,2)}% reduction in storage size)
+persons_5_records(json):{persons_json_file_size} bytes, persons_5_records(binary):{persons_bin_file_size} bytes ------> ({round(persons_bin_file_size/persons_json_file_size,2)}% reduction in storage size)
+
+persons_100k_records(json):{persons_json_lakh_file_size} bytes ({round(persons_json_lakh_file_size/1e+6,2)} MB), persons_100k_records(binary):{persons_bin_lakh_file_size} bytes ({round(persons_bin_lakh_file_size/1e+6,2)} MB) ------> ({round(persons_bin_lakh_file_size/persons_json_lakh_file_size,2)}% reduction in storage size)
+
     """
     )
 

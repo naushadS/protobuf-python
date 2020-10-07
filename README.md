@@ -135,7 +135,11 @@ b'\n.\n\x07Naushad\x12\x07Shukoor\x18\x19"\x18naushadshukoor@gmail.com\n\x1f\n\x
 ------------------------------------------------------------------------------------------------------------------------
 
     
-Took 198 bytes to store serialized data(using protobuf) in binary format
+Took 198 bytes to store serialized data(using protobuf) (5 records)  in binary format
+
+Took 9988890 bytes(9.99 MB) to store data (100k records) in JSON format
+
+Took 4983486 bytes(4.98 MB) to store serialized data(using protobuf) (100k records) in binary format
 
 
 ########################################################################################################################
@@ -144,7 +148,9 @@ Summary
 
 person(json):95 bytes, person(binary):46 bytes ------> (0.48% reduction in storage size)
 
-persons(json):443 bytes, persons(binary):198 bytes ------> (0.45% reduction in storage size)
+persons_5_records(json):443 bytes, persons_5_records(binary):198 bytes ------> (0.45% reduction in storage size)
+
+persons_100k_records(json):9988890 bytes (9.99 MB), persons_100k_records(binary):4983486 bytes (4.98 MB) ------> (0.5% reduction in storage size)
 ```
 
 ## proto_deserializer.py output
